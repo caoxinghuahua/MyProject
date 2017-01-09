@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "com.example.caoxinghua.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding{
+        enabled=true;
+    }
+}
+repositories    {
+    flatDir {        dirs 'libs'    }
+//    maven {
+//        url 'http://10.69.213.76:8081/nexus/content/repositories/snapshots/'
+//    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile(name: 'AdLibrary', ext: 'aar')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile files('libs/BaiduAppX.jar')
+    compile files('libs/android-query-full.0.26.7.jar')
+//    compile 'cn.com.gomeplus.ad:gomeplus-ad-SDK:1.0.5-SNAPSHOT'
+    compile files('libs/YoumiSdk_v6.1.0_2016-02-26.jar')
+    compile 'com.squareup.picasso:picasso:2.5.1'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+
+}
