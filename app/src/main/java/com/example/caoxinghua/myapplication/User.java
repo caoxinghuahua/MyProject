@@ -47,7 +47,7 @@ public class User {
     }
 
 
-    @BindingAdapter("bind:iconUrl")
+    @BindingAdapter("iconUrl")
     public static void getNetImage(ImageView imageView,String iconUrl){
         Glide.with(imageView.getContext()).load(iconUrl).into(imageView);
     }

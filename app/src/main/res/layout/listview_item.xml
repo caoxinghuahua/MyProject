@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="food"
+            type="com.example.caoxinghua.myapplication.Food" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            app:img="@{food.img}"
+            android:onClick="@{food.ItemClick}"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{food.name}"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{food.description}"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`price is:`+food.price}"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
