@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ <item
+     android:id="@+id/menu_local"
+     android:icon="@mipmap/user_other_login_sina"
+     android:title="本地播放器"
+     app:showAsAction="always"/>
+  <item
+      android:id="@+id/menu_video"
+      android:icon="@mipmap/user_other_login_sina"
+      android:title="video播放"
+      app:showAsAction="always"/>
+  <item
+      android:id="@+id/menu_surface"
+      android:icon="@mipmap/user_other_login_sina"
+      android:title="surface播放"
+      app:showAsAction="always"/>
+
+
+</menu>

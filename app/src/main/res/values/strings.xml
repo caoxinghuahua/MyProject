@@ -10,4 +10,6 @@
         <item>列表7</item>
         <item>列表8</item>
     </string-array>
+    <string name="video_play_str">video播放</string>
+    <string name="title_activity_surface_player">SurfacePlayer</string>
 </resources>
