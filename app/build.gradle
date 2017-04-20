@@ -20,9 +20,15 @@ android {
     dataBinding{
         enabled=true;
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']  /**在libs文件夹下找so文件*/
+        }
+    }
 }
 repositories    {
-    flatDir {        dirs 'libs'    }
+    mavenCentral()
+    flatDir {        dirs 'libs'    } /**在libs文件夹下找aar文件*/
 //    maven {
 //        url 'http://10.69.213.76:8081/nexus/content/repositories/snapshots/'
 //    }
@@ -42,4 +48,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okio:okio:1.5.0'
+    compile(name: 'ijkplayer-java-release', ext: 'aar') /**编译ijkplayer-java-release.aar文件*/
 }

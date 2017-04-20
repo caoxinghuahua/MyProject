@@ -19,10 +19,7 @@
         <activity android:name=".MvvmTestActivity" />
         <activity android:name=".DrawLayoutTestActivity" />
         <activity android:name=".rxjava.TestRxJavaActivity" />
-        <activity android:name=".okhttp.OkHttpTestActivity"></activity>
-        <activity
-            android:name=".video.TestVideo"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".okhttp.OkHttpTestActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +27,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".video.TestVideo"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".video.SurfacePlayer"
-            android:label="@string/title_activity_surface_player"
-            android:configChanges="orientation|screenSize"></activity>
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_surface_player" />
+        <activity
+            android:name=".TestIjk"
+            android:label="@string/title_activity_test_ijk"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".keyboard.KeydemoActivity">
+
+        </activity>
     </application>
 
 </manifest>
