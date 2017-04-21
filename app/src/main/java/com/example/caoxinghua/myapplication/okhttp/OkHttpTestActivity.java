@@ -40,7 +40,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
         setContentView(R.layout.okhttp_main);
         new Thread(){
             public void run(){
-//                testOkhttp();
+                testOkhttp();
 //                  Map<String,String>  map=new HashMap<String, String>();
 //                  map.put("slotId","10014");
 //                  map.put("requestType","2");
