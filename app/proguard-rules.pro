@@ -15,3 +15,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keep class com.dodola.rocoofix.** {*;}
+-keep class com.lody.legend.** {*;}
+-keepclassmembers class com.dodola.rocoosample.** {
+  public <init>();
+}
+-keep class com.example.caoxinghua.myapplication.glideAndPicasso.OkHttpGlideModule

@@ -41,10 +41,10 @@ public class KeydemoActivity extends AppCompatActivity {
             }
         });
         viewFlipper=(ViewFlipper) findViewById(R.id.viewFlipper);
-//        for(int i=0;i<5;i++){
-//            TextView textView=new TextView(this);
+//       for(int i=0;i<5;i++){
+//           TextView textView=new TextView(this);
 //            textView.setText("title"+i);
-//            viewFlipper.addView(textView);
+//           viewFlipper.addView(textView);
 //        }
         viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this,R.anim.up_in));
         viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,R.anim.down_out));

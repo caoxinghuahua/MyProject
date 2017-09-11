@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<declare-styleable name="testStyle">
-    <attr name="text" format="string"/>
-</declare-styleable>
+    <declare-styleable name="testStyle">
+        <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontial_spacing" format="dimension"/>
+        <attr name="vertical_spacing" format="dimension"/>
+    </declare-styleable>
 </resources>

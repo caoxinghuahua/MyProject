@@ -51,8 +51,8 @@ public class DrawLayoutTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.hide();
+        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.hide();
         setContentView(R.layout.layout_drawlayout);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawLayout);
         navigationView=(NavigationView) findViewById(R.id.navigation_view);

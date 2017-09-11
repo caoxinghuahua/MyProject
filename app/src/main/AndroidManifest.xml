@@ -19,18 +19,12 @@
         <activity android:name=".MvvmTestActivity" />
         <activity android:name=".DrawLayoutTestActivity" />
         <activity android:name=".rxjava.TestRxJavaActivity" />
-        <activity android:name=".okhttp.OkHttpTestActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".okhttp.OkHttpTestActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".video.TestVideo"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".video.SurfacePlayer"
             android:configChanges="orientation|screenSize"
@@ -38,9 +32,23 @@
         <activity
             android:name=".TestIjk"
             android:label="@string/title_activity_test_ijk"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".keyboard.KeydemoActivity">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".keyboard.KeydemoActivity" />
+        <activity android:name=".hotfix.FixMainActivity" />
+        <activity android:name=".okhttp.VisibleTestActivity"></activity>
+        <activity android:name=".retrofit.RetrofitActivity" />
+        <activity android:name=".defview.DefMainActivity"></activity>
 
+        <meta-data
+            android:name="com.example.caoxinghua.myapplication.glideAndPicasso.OkHttpGlideModule"
+            android:value="GlideModule" />
+
+        <activity android:name=".glideAndPicasso.GlideAndPicassoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
