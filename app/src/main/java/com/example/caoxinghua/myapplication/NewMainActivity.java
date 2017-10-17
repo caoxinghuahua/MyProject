@@ -49,6 +49,9 @@ public class NewMainActivity extends AppCompatActivity {
         });
     }
     private void initData(){
+
+
+        //test
         JumpBean bean=new JumpBean();
         bean.setName("全屏");
         bean.setJumpStr("com.example.caoxinghua.myapplication.MainActivity");
