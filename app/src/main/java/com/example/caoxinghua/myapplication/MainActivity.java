@@ -38,13 +38,7 @@ public class MainActivity extends Activity {
         mLayout=(RelativeLayout) findViewById(R.id.layout);
 
     }
-    public void onWindowFocusChanged(boolean hasFocus) {
-        // TODO Auto-generated method stub
-        super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
-            popupWindow.showAtLocation(findViewById(R.id.layout2), Gravity.CENTER,10,10);
-        }
-    }
+  
     private void testHandler(){
         Handler handler=new Handler();
         ListView listView=new ListView(MainActivity.this);

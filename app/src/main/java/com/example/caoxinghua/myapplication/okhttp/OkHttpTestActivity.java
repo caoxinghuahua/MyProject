@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.support.design.widget.TabLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.caoxinghua.myapplication.R;
@@ -34,13 +35,17 @@ public class OkHttpTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.okhttp_main);
+
         ImageView imageView=(ImageView) findViewById(R.id.iv);
 //        Glide.with(imageView.getContext()).load(imageUrl).into(imageView);
 
         String path = Environment.getDataDirectory().getAbsolutePath() + "\n" + Environment.getDownloadCacheDirectory().getAbsolutePath() + "\n"
                 + Environment.getRootDirectory().getAbsolutePath() + "\n" + Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.i("xxx", "path:" + path);
-        new Thread() {
+        for(int i=0;i<50;i++){
+            testOkhttp(""+(10014+i));
+        }
+    /**    new Thread() {
             public void run() {
                testOkhttp();
 //                  Map<String,String>  map=new HashMap<String, String>();
@@ -48,7 +53,8 @@ public class OkHttpTestActivity extends AppCompatActivity {
 //                  map.put("requestType","2");
 //                  getPostData(map);
             }
-        }.start();
+        }.start();*/
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("slotId", "10014");
         map.put("requestType", "2");
@@ -77,11 +83,11 @@ public class OkHttpTestActivity extends AppCompatActivity {
         });
     }
 
-    private void testOkhttp() {
+    private void testOkhttp(String slotId) {
         OkHttpClient httpClient = new OkHttpClient();
         //type=1 同步get 2异步get 3同步post 4异步post
         //同步时不能在主线程直接调用
-        int type = 1;
+        int type = 4;
         try {
             if (type == 1) {
                 final Request request = new Request.Builder().url(url + "slotId=10016&requestType=2")
@@ -136,13 +142,13 @@ public class OkHttpTestActivity extends AppCompatActivity {
                 RequestBody requestBody = null;
                 if (flag == 1) {
                     requestBody = new FormEncodingBuilder()
-                            .add("slotId", "10015")
+                            .add("slotId", ""+slotId)
                             .add("requestType", "2")
                             .build();
                 } else if (flag == 2) {
 
                     JSONObject object = new JSONObject();
-                    object.put("slotId", "10014");
+                    object.put("slotId", ""+slotId);
                     object.put("requestType", "2");
                     requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), object.toString());
                 }
@@ -150,18 +156,19 @@ public class OkHttpTestActivity extends AppCompatActivity {
                 final Request request = new Request.Builder().url(url)
                         .post(requestBody)
                         .build();
-                Log.i("xxx", "start:" + System.currentTimeMillis());
+                final long start=System.currentTimeMillis();
+                Log.i("xxx", "start:" + start);
                 Call call = httpClient.newCall(request);
                 call.enqueue(new Callback() {
                     @Override
                     public void onFailure(Request request, IOException e) {
-
+                        Log.i("xxx", "error:" + (System.currentTimeMillis()-start));
                     }
 
                     @Override
                     public void onResponse(Response response) throws IOException {
-                        Log.i("xxx", "end:" + System.currentTimeMillis());
-                        Log.i("xxx", "post async response:" + response.body().string() + "\n" + response.headers());
+                        Log.i("xxx", "end:" + (System.currentTimeMillis()-start));
+//                        Log.i("xxx", "post async response:" + response.body().string() + "\n" + response.headers());
                     }
                 });
             }
