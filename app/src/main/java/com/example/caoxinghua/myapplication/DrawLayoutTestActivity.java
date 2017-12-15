@@ -36,6 +36,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static android.content.Context.WIFI_SERVICE;
+
 /**
  * Created by caoxinghua on 2017/1/18.
  */
@@ -125,7 +127,7 @@ public class DrawLayoutTestActivity extends AppCompatActivity {
     }
 
     private void getIp() {
-        WifiManager wifiMan = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiMan = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo info = wifiMan.getConnectionInfo();
         String mac = info.getMacAddress();// 获得本机的MAC地址
         String ssid = info.getSSID();// 获得本机所链接的WIFI名称

@@ -42,7 +42,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
         String path = Environment.getDataDirectory().getAbsolutePath() + "\n" + Environment.getDownloadCacheDirectory().getAbsolutePath() + "\n"
                 + Environment.getRootDirectory().getAbsolutePath() + "\n" + Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.i("xxx", "path:" + path);
-        for(int i=0;i<50;i++){
+        for(int i=0;i<1;i++){
             testOkhttp(""+(10014+i));
         }
     /**    new Thread() {

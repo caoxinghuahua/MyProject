@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
+
+import com.gomeplus.meixin.ad.manger.MXAdsInstance;
+import com.gomeplus.meixin.ad.view.MXAdsBannerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +24,12 @@ public class NewMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_main);
         initView();
+
         initData();
         init();
     }
     private void initView(){
+
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -34,9 +40,9 @@ public class NewMainActivity extends AppCompatActivity {
                 outRect.set(0,0,0,1);
             }
         });
+
     }
     private void init(){
-
         NewMainAdapter adapter=new NewMainAdapter(this,list);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -53,7 +59,7 @@ public class NewMainActivity extends AppCompatActivity {
 
         //test
         JumpBean bean=new JumpBean();
-        bean.setName("全屏");
+        bean.setName("全屏test fix");
         bean.setJumpStr("com.example.caoxinghua.myapplication.MainActivity");
         list.add(bean);
 
@@ -123,6 +129,16 @@ public class NewMainActivity extends AppCompatActivity {
         bean=new JumpBean();
         bean.setName("Constraint约束使用");
         bean.setJumpStr("com.example.caoxinghua.myapplication.okhttp.ConstraintActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("MediaRecoder使用");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.video.RecoderActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("录制video");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestRecordVideoActivity");
         list.add(bean);
     }
 }

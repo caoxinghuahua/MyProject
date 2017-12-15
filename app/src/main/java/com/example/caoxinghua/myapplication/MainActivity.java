@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.gomeplus.meixin.ad.view.MXAdsBannerView;
+
 
 public class MainActivity extends Activity {
     String json="";
@@ -34,8 +36,10 @@ public class MainActivity extends Activity {
             window.setStatusBarColor(Color.TRANSPARENT);
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
-        setContentView(R.layout.activity_main);
-        mLayout=(RelativeLayout) findViewById(R.id.layout);
+        MXAdsBannerView mxAdsBannerView=new MXAdsBannerView(this,"10014",true,true);
+
+        setContentView(mxAdsBannerView);
+//        mLayout=(RelativeLayout) findViewById(R.id.layout);
 
     }
   
