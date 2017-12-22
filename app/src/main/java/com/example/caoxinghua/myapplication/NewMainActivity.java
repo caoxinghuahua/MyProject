@@ -67,30 +67,37 @@ public class NewMainActivity extends AppCompatActivity {
         bean.setName("MVVM 测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.MvvmTestActivity");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("DrawLayout测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.DrawLayoutTestActivity");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("RxJava测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.rxjava.TestRxJavaActivity");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("OkHttp测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.okhttp.OkHttpTestActivity");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("Video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestVideo");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("SurfacePlayer");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.SurfacePlayer");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("Video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestVideo");
         list.add(bean);
+
         bean=new JumpBean();
         bean.setName("TestIjk");
         bean.setJumpStr("com.example.caoxinghua.myapplication.TestIjk");
@@ -139,6 +146,16 @@ public class NewMainActivity extends AppCompatActivity {
         bean=new JumpBean();
         bean.setName("录制video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestRecordVideoActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("蓝牙使用");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.bluetooth.TestBlueToothActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("allowBackup测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.allowbackup.TestAllowBackupActivity");
         list.add(bean);
     }
 }

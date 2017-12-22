@@ -18,20 +18,15 @@ public class NewApplication extends Application {
         if(instance==null){
             instance =new NewApplication();
         }
-        Log.i("xxx","in:"+instance);
         return instance;
     }
     public NewApplication(){
-        Log.i("xxx","cc1:"+NewApplication.this);
     }
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i("xxx","cc2:"+NewApplication.this);
 
-        Log.i("xxx","x1");
         patchManager = new PatchManager(this);
-        Log.i("xxx","x11"+patchManager);
         patchManager.init(AppUtils.getVersionName(this));
         patchManager.loadPatch();
         Intent patchDownloadIntent = new Intent(this, PatchDownloadIntentService.class);
@@ -51,12 +46,9 @@ public class NewApplication extends Application {
 //        }
     }
     public PatchManager getPatchManager(){
-        Log.i("xxx","x33");
         if(patchManager!=null){
-            Log.i("xxx","x3");
             return patchManager;
         }else {
-            Log.i("xxx","x4");
             return null;
         }
     }

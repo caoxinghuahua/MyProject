@@ -47,7 +47,7 @@ dependencies {
     //    compile 'com.dodola:rocoo:1.1'
     compile project(':mylibrary')
     compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'cn.com.gomeplus.ad:gomeplus-ad-SDK:2.2.5'
+    compile 'cn.com.gomeplus.ad:gomeplus-ad-SDK:2.2.8'
     compile 'com.squareup.picasso:picasso:2.5.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:24.2.1'

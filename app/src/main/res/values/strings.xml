@@ -80,5 +80,7 @@
     <string name="title_activity_test_ijk">TestIjk</string>
     <string name="title_activity_recoder">RecoderActivity</string>
     <string name="title_activity_test_record_video">TestRecordVideoActivity</string>
+    <string name="title_activity_test_blue_tooth">TestBlueToothActivity</string>
+    <string name="title_activity_test_allow_backup">TestAllowBackupActivity</string>
 
 </resources>

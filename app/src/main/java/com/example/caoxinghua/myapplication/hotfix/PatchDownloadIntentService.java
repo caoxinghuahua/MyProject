@@ -56,7 +56,6 @@ public class PatchDownloadIntentService extends IntentService {
 
         if (patchFile.exists() && patchFile.length() > 0 && fileLength >= 0) {
             try {
-                Log.i("xxx","x2"+NewApplication.getInstance()+"//"+NewApplication.getInstance().getPatchManager());
                 NewApplication.getInstance().getPatchManager().addPatch(patchFile.getAbsolutePath());
             } catch (Exception e) {
                 e.printStackTrace();
