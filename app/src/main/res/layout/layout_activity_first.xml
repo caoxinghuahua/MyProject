@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.caoxinghua.myapplication.activity.First_Activity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <Button
+        android:id="@+id/switchTo2_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳转到second"/>
+    <Button
+        android:id="@+id/switchTo3_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳转到third"/>
+    <TextView
+        android:id="@+id/saveTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:freezesText="true"/>
+    <com.example.caoxinghua.myapplication.activity.MyView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_height_percent="0.3"
+        app:layout_width_percent="0.3"
+        android:text="自定义view"
+        android:background="#cccccc"
+        android:gravity="center_vertical|center_horizontal"/>
+
+</LinearLayout>

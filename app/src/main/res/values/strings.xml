@@ -82,5 +82,10 @@
     <string name="title_activity_test_record_video">TestRecordVideoActivity</string>
     <string name="title_activity_test_blue_tooth">TestBlueToothActivity</string>
     <string name="title_activity_test_allow_backup">TestAllowBackupActivity</string>
+    <string name="title_activity_test_nfc">TestNfcActivity</string>
+    <string name="title_activity_test_service">TestServiceActivity</string>
+    <string name="title_activity_first_">First_Activity</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_test_percent_support">TestPercentSupport</string>
 
 </resources>

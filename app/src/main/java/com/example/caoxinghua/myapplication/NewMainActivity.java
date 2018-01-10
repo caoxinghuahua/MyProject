@@ -157,5 +157,20 @@ public class NewMainActivity extends AppCompatActivity {
         bean.setName("allowBackup测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.allowbackup.TestAllowBackupActivity");
         list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("NFC测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.nfc.TestNfcActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("Service测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.service.TestServiceActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("Activity测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.activity.First_Activity");
+        list.add(bean);
     }
 }
