@@ -1,18 +1,30 @@
 package com.example.caoxinghua.myapplication;
 
+import android.*;
+import android.Manifest;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.os.Debug;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.gomeplus.meixin.ad.manger.MXAdsInstance;
 import com.gomeplus.meixin.ad.view.MXAdsBannerView;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +34,19 @@ public class NewMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+//            Debug.startMethodTracing("/sdcard/mytrace");
+//        }
+
         setContentView(R.layout.activity_new_main);
         initView();
-
         initData();
         init();
+        SharedPreferences sharedPreferences=this.getSharedPreferences("test",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("id","666");
+        editor.commit();
+        testDateFile();
     }
     private void initView(){
 
@@ -172,5 +192,60 @@ public class NewMainActivity extends AppCompatActivity {
         bean.setName("Activity测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.activity.First_Activity");
         list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("AIDL测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.aidl.TestAIDLActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("广播测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.receiver.TestReceiverActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("listview图片错位问题");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.listview.ListViewActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("WebP测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.webp.WebpActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("JNI测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.ndk.JniActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("AsyncTask测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.asynctask.AsyncTaskActivity");
+        list.add(bean);
+    }
+    private void testDateFile(){
+        File dir=this.getFilesDir();
+        File file=new File(dir.getAbsolutePath()+"/test.txt");
+        Log.i("xxx","path:"+file.getAbsolutePath()+"//"+this.getExternalCacheDir().getAbsolutePath());
+        try{
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileWriter fileWriter=new FileWriter(file);
+            BufferedWriter bw=new BufferedWriter(fileWriter);
+            bw.write("test shhhhhhh"+System.currentTimeMillis());
+            bw.close();
+            fileWriter.close();
+        }catch (Exception e){
+
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            Debug.stopMethodTracing();
+        }
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.caoxinghua.myapplication.aidl.TestAIDLActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+    <Button
+        android:id="@+id/aidlBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aidl连接"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp"
+        app:layout_constraintRight_toLeftOf="@+id/readBt"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.627" />
+    <Button
+        android:id="@+id/readBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aidl读取"
+        app:layout_constraintRight_toLeftOf="@+id/addBt"
+        android:layout_marginRight="39dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp" />
+    <Button
+        android:id="@+id/addBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aidl添加"
+        android:layout_marginRight="6dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="-7dp"
+        android:orientation="vertical" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        app:layout_constraintGuide_begin="135dp"
+        android:orientation="horizontal" />
+</android.support.constraint.ConstraintLayout>

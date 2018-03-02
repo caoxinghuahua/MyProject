@@ -6,8 +6,12 @@ import android.util.Log;
 
 import com.example.caoxinghua.myapplication.Entity.RetrofitBean;
 import com.example.caoxinghua.myapplication.R;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -23,7 +27,8 @@ public class RetrofitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit);
-        testRetrofit();
+//        testRetrofit();
+        test2();
     }
     private void testRetrofit(){
       try{
@@ -93,5 +98,27 @@ public class RetrofitActivity extends AppCompatActivity {
       }catch (Exception e){
           Log.i("xxx","e:"+e.toString());
       }
+    }
+    private void test2(){
+        Retrofit retrofit=new Retrofit.Builder()
+                .client(new OkHttpClient())
+                .baseUrl("http://10.115.3.150:8189/")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService service=retrofit.create(ApiService.class);
+//        Call<JsonObject> call=service.getAdDataByP("10014");//注意区分JSONObject和JsonObject
+        Call<JsonObject> call=service.postAdDataByP("10014");//注意区分JSONObject和JsonObject
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.i("xxx","response:"+response.body());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable throwable) {
+
+            }
+        });
     }
 }

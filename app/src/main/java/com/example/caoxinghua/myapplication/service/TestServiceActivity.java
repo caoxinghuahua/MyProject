@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.example.caoxinghua.myapplication.R;
 
 public class TestServiceActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button startBt,stopBt;
+    private Button startBt,stopBt,bindBt,unBindBt,accessBt;
     private TextView contentTv;
     private MyService myService;
     private boolean isBind=false;
@@ -47,20 +47,36 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
     private void initView(){
         startBt= (Button) findViewById(R.id.startBt);
         stopBt= (Button) findViewById(R.id.stopBt);
+        bindBt= (Button) findViewById(R.id.bindBt);
+        unBindBt= (Button) findViewById(R.id.unBindBt);
+        accessBt= (Button) findViewById(R.id.accessBt);
         contentTv= (TextView) findViewById(R.id.contentTv);
         startBt.setOnClickListener(this);
         stopBt.setOnClickListener(this);
+        bindBt.setOnClickListener(this);
+        unBindBt.setOnClickListener(this);
+        accessBt.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
+        Intent intent=null;
         switch (v.getId()){
             case R.id.startBt:
-//                Intent intent=new Intent(this,MyService.class);
-//                startService(intent);
-                doBindService();
+                intent=new Intent(this,MyService.class);
+                startService(intent);
                 break;
             case R.id.stopBt:
+                intent=new Intent(this,MyService.class);
+                stopService(intent);
+                break;
+            case R.id.bindBt:
+                doBindService();
+                break;
+            case R.id.unBindBt:
                 doUnbindService();
+                break;
+            case R.id.accessBt:
+                startActivity(new Intent(this,AccessibilityActivity.class));
                 break;
         }
 
@@ -106,7 +122,7 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
         isBind=true;
         Intent intent=new Intent(this,MyService.class);
         bindService(intent,connection, Context.BIND_AUTO_CREATE);
-        startService(intent);
+//        startService(intent);
     }
     @Override
     protected void onStop() {
@@ -116,7 +132,7 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
     private void doUnbindService(){
         if(!isBind)return;
         unbindService(connection);
-        stopService(new Intent(this,MyService.class));
+//        stopService(new Intent(this,MyService.class));
         isBind=false;
     }
 }

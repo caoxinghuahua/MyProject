@@ -62,10 +62,10 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("xxx","onStart()"+intent);
+        Log.i("xxx","onStart()"+(intent==null));
         startForeground();
 
-        return START_STICKY;
+        return START_NOT_STICKY;
 
     }
     public void test(){
