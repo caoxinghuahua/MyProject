@@ -30,11 +30,13 @@ public class MyView extends AppCompatTextView {
         TypedArray array=context.obtainStyledAttributes(attrs,R.styleable.MyView);
         width_percent=array.getFloat(R.styleable.MyView_layout_height_percent,0);
         height_percent=array.getFloat(R.styleable.MyView_layout_height_percent,0);
+        array.recycle();
         WindowManager windowManager= (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics=new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         width=displayMetrics.widthPixels;
         height=displayMetrics.heightPixels;
+
     }
 
     @Override

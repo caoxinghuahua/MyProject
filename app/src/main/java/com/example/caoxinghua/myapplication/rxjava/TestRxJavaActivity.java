@@ -11,6 +11,7 @@ import com.example.caoxinghua.myapplication.R;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,6 +51,9 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
     }
     private void initPost(){
+//        OkHttpClient httpClient=new OkHttpClient();
+//        Interceptor interceptor=new CoustomIntercept();
+//        httpClient.interceptors().add(interceptor);
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl("http://flight.gome.com.cn/")
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

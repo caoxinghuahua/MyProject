@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.alipay.euler.andfix.patch.PatchManager;
 import com.example.caoxinghua.myapplication.hotfix.PatchDownloadIntentService;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.File;
 
@@ -44,6 +45,7 @@ public class NewApplication extends Application {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
+
     }
     public PatchManager getPatchManager(){
         if(patchManager!=null){

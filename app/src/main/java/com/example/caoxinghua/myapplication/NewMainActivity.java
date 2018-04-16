@@ -60,7 +60,7 @@ public class NewMainActivity extends AppCompatActivity {
                 outRect.set(0,0,0,1);
             }
         });
-
+        
     }
     private void init(){
         NewMainAdapter adapter=new NewMainAdapter(this,list);
@@ -221,6 +221,11 @@ public class NewMainActivity extends AppCompatActivity {
         bean=new JumpBean();
         bean.setName("AsyncTask测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.asynctask.AsyncTaskActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setName("anim测试");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.anim.TestAnimActivity");
         list.add(bean);
     }
     private void testDateFile(){

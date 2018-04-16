@@ -1,6 +1,8 @@
 package com.example.caoxinghua.myapplication.asynctask;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -19,7 +21,9 @@ public class AsyncTaskActivity extends AppCompatActivity {
         tv= (TextView) findViewById(R.id.tv);
         MyTask task=new MyTask();
         task.execute();
-
+        //task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,null);//并行执行
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        AlertDialog dialog=builder.create();
     }
     class MyTask extends AsyncTask<Void,Integer,Void>{
         @Override

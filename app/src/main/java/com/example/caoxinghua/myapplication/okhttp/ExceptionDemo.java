@@ -46,7 +46,7 @@ public class ExceptionDemo
 
         Queue<String> queue=new LinkedList<String>();
         Vector<String> vector=new Vector<String>();
-        vector.add("A");
+        vector.add("AA");
         vector.add("B");
         vector.add("C");
         vector.add("D");

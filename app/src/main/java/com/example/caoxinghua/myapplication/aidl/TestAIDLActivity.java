@@ -9,12 +9,15 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.caoxinghua.myapplication.R;
+import com.example.caoxinghua.myapplication.defview.MyView;
 
 import java.util.List;
+import java.util.Map;
 
 public class TestAIDLActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,7 +42,7 @@ public class TestAIDLActivity extends AppCompatActivity implements View.OnClickL
                 bookManger=null;
             }
         };
-
+       
     }
 
     @Override

@@ -1,4 +1,8 @@
-apply plugin: 'com.android.library'
+if(isPlugin){
+    apply plugin: 'com.android.library'
+}else {
+    apply plugin: 'com.android.application'
+}
 
 android {
     compileSdkVersion 24
@@ -9,6 +13,9 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        if(!isPlugin){
+            applicationId 'com.test.hua.lib'
+        }
     }
     buildTypes {
         release {
@@ -19,6 +26,17 @@ android {
     dataBinding{
         enabled = true
     }
+    sourceSets{
+        main{
+            if (isPlugin){
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/release/AndroidManifest.xml'
+                exclude 'debug/**'
+            }
+        }
+    }
+
 }
 
 dependencies {

@@ -11,6 +11,23 @@ import android.widget.Toast;
 
 
 import com.example.caoxinghua.myapplication.R;
+import com.google.gson.JsonObject;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 
 public class ConstraintActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -35,6 +52,38 @@ public class ConstraintActivity extends AppCompatActivity {
                 Looper.loop();
             }
         }.start();
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody= new FormEncodingBuilder().add("key","value").build();
+//        JSONObject jsonObject=new JSONObject();
+//        try {
+//            jsonObject.put("key","value");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        RequestBody requestBody1= RequestBody.create(MediaType.parse("application/json; charset=utf-8"),jsonObject.toString());
+//        RequestBody requestBody12=new MultipartBuilder().type(MultipartBuilder.FORM).addPart(Headers.of()).build();
+        Request request=new Request.Builder().url("").post(requestBody).build();
+        Call call=okHttpClient.newCall(request);
+        try {
+            Response response=call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        call.enqueue(new Callback() {
+           @Override
+           public void onFailure(Request request, IOException e) {
+
+           }
+
+           @Override
+           public void onResponse(Response response) throws IOException {
+
+           }
+        });
+        okhttp3.OkHttpClient.Builder builder=new okhttp3.OkHttpClient.Builder();
+        okhttp3.OkHttpClient client=builder.build();
+
+
     }
 
     private void initView() {

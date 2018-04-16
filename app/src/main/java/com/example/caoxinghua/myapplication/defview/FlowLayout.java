@@ -2,6 +2,7 @@ package com.example.caoxinghua.myapplication.defview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +43,7 @@ public class FlowLayout extends ViewGroup {
         int lineH=0;
         for(int i=0;i<getChildCount();i++){
             View childView=getChildAt(i);
-            Log.i("xxx",i+"w:"+childView.getWidth()+"/"+childView.getMeasuredWidth()+"h:"+childView.getHeight()+"/"+childView.getMeasuredHeight());
+//            Log.i("xxx",i+"w:"+childView.getWidth()+"/"+childView.getMeasuredWidth()+"h:"+childView.getHeight()+"/"+childView.getMeasuredHeight());
             if(childView.getVisibility()!=GONE){
                 measureChild(childView,widthMeasureSpec,heightMeasureSpec);
             }else {
@@ -50,7 +51,7 @@ public class FlowLayout extends ViewGroup {
             }
             int childW=childView.getMeasuredWidth();
             int childH=childView.getMeasuredHeight();
-            Log.i("xxx1",i+"w:"+childView.getWidth()+"/"+childW+"h:"+childView.getHeight()+"/"+childH);
+//            Log.i("xxx3",i+"w:"+childView.getWidth()+"/"+childW+"h:"+childView.getHeight()+"/"+childH);
 
             lineH=Math.max(lineH,childH);
             if(childLeft+childW+horizontial_spacing>myWidth){
@@ -104,5 +105,11 @@ public class FlowLayout extends ViewGroup {
             childView.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
             childLeft += childWidth + horizontial_spacing;
         }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Log.i("xxx","ondraw");
     }
 }

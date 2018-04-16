@@ -212,7 +212,8 @@
         <activity android:name=".receiver.TestReceiverActivity" />
         <activity android:name=".webp.WebpActivity" />
         <activity android:name=".ndk.JniActivity" />
-        <activity android:name=".asynctask.AsyncTaskActivity"></activity>
+        <activity android:name=".asynctask.AsyncTaskActivity" />
+        <activity android:name=".anim.TestAnimActivity"></activity>
     </application>
 
 </manifest>

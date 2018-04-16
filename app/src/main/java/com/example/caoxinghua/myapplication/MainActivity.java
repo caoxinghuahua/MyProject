@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 
 import com.gomeplus.meixin.ad.view.MXAdsBannerView;
 
+import org.json.JSONObject;
+
 
 public class MainActivity extends Activity {
     String json="";

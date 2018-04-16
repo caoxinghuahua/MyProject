@@ -6,12 +6,12 @@ package com.example.caoxinghua.myapplication.javatest;
 
 public class A {
     public A(){
-        System.out.print("A");
+        System.out.print("AA");
     }
     {
-        System.out.print("{A}");
+        System.out.print("{AA}");
     }
     static  {
-        System.out.print("static A");
+        System.out.print("static AA");
     }
 }

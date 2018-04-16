@@ -5,4 +5,5 @@ public class JNIUtil {
     static {
         System.loadLibrary("JNISample");
     }
+    public native String test();
 }

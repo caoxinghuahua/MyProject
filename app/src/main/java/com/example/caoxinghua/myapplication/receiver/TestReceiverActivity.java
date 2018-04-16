@@ -58,7 +58,6 @@ public class TestReceiverActivity extends AppCompatActivity implements View.OnCl
         receiver=new MyReceiver();
         IntentFilter filter=new IntentFilter();
         filter.addAction("test.receiver");
-
         localBroadcastManager=LocalBroadcastManager.getInstance(this);
 
         localBroadcastManager.registerReceiver(receiver,filter);
