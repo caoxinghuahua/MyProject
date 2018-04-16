@@ -18,7 +18,7 @@ public class TestAnimActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_anim);
         initView();
-        testAnimator();
+        testAnimator();//test anim
     }
     private void initView(){
         animIv= (ImageView) findViewById(R.id.animIv);
