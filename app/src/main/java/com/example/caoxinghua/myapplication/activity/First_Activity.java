@@ -32,6 +32,7 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.layout_activity_first);
         initView();
         Log.i(TAG,"onCreate()");
+		//test
     }
 
     @Override
