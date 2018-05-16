@@ -29,7 +29,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class OkHttpTestActivity extends AppCompatActivity {
-    private String url = "http://flight-pre.gomeplus.com/flight?";
+    //http://10.115.3.150:8189/c/d?p=
+    private String url = "http://flight.gomeplus.com/flight?";
     private String imageUrl = "http://pic5.zhongsou.com/img?id=522f8c6e488097cef53!sy";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,9 @@ public class OkHttpTestActivity extends AppCompatActivity {
         String path = Environment.getDataDirectory().getAbsolutePath() + "\n" + Environment.getDownloadCacheDirectory().getAbsolutePath() + "\n"
                 + Environment.getRootDirectory().getAbsolutePath() + "\n" + Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.i("xxx", "path:" + path);
-        for(int i=0;i<50;i++){
-            testOkhttp(""+(10014+i));
-        }
+
+            testOkhttp(""+(10022));
+
     /**    new Thread() {
             public void run() {
                testOkhttp();
@@ -84,23 +85,39 @@ public class OkHttpTestActivity extends AppCompatActivity {
     }
 
     private void testOkhttp(String slotId) {
-        OkHttpClient httpClient = new OkHttpClient();
+        final OkHttpClient httpClient = new OkHttpClient();
         //type=1 同步get 2异步get 3同步post 4异步post
         //同步时不能在主线程直接调用
-        int type = 4;
+        int type = 1;
         try {
             if (type == 1) {
-                final Request request = new Request.Builder().url(url + "slotId=10016&requestType=2")
-                        .build();
-                Call call = httpClient.newCall(request);
-                Response response = call.execute();
-                if (response.isSuccessful()) {
-                    Log.i("xxx", "get sync response:" + response.body().string());
-                } else {
-                    throw new IOException("Unexpected code " + response);
-                }
+              new Thread(){
+                 public void run(){
+                     try {
+                     final Request request = new Request.Builder().url(url + "slotId=10022&requestType=2")
+                             .build();
+                     Call call = httpClient.newCall(request);
+                     Response response = call.execute();
+                     if (response.isSuccessful()) {
+                         Log.i("xxx", "get sync response:" + response.body().string());
+                         runOnUiThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 setTitle("sync");
+                             }
+                         });
+                     } else {
+
+                             throw new IOException("Unexpected code " + response);
+
+                     }
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                 }
+              }.start();
             } else if (type == 2) {
-                final Request request = new Request.Builder().url(url + "slotId=10016&requestType=2")
+                final Request request = new Request.Builder().url(url + "slotId=10022&requestType=2")
                         .build();
                 Call call = httpClient.newCall(request);
                 call.enqueue(new Callback() {
@@ -123,19 +140,27 @@ public class OkHttpTestActivity extends AppCompatActivity {
                 });
 
             } else if (type == 3) {
-                RequestBody requestBody = new FormEncodingBuilder()
-                        .add("slotId", "10016")
-                        .add("requestType", "2")
-                        .build();
-                Request request = new Request.Builder().url(url)
-                        .post(requestBody)
-                        .build();
-                Response response = httpClient.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    Log.i("xxx", "post sync response:" + response.body().string());
-                } else {
-                    throw new IOException("Unexpected code " + response);
-                }
+                new Thread(){
+                    public void run(){
+                        try {
+                            RequestBody requestBody = new FormEncodingBuilder()
+                                    .add("slotId", "10022")
+                                    .add("requestType", "2")
+                                    .build();
+                            Request request = new Request.Builder().url(url)
+                                    .post(requestBody)
+                                    .build();
+                            Response response = httpClient.newCall(request).execute();
+                            if (response.isSuccessful()) {
+                                Log.i("xxx", "post sync response:" + response.body().string());
+                            } else {
+                                throw new IOException("Unexpected code " + response);
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+                }.start();
             } else if (type == 4) {
                 //flag=1;键值对 flag=2;json格式
                 int flag = 2;

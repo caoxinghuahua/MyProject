@@ -25,17 +25,17 @@ public class MvvmTestActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         testListView();
     }
-    private void test(){
-        MainMvvmBinding binding= DataBindingUtil.setContentView(this, R.layout.main_mvvm);
-        User user=new User("Wade","Li",iconUrl);
-        binding.setUser(user);
-        binding.setClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MvvmTestActivity.this,"asasa",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void test(){
+//        MainMvvmBinding binding= DataBindingUtil.setContentView(this, R.layout.main_mvvm);
+//        User user=new User("Wade","Li",iconUrl);
+//        binding.setUser(user);
+//        binding.setClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(MvvmTestActivity.this,"asasa",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
     private void testListView(){
         setContentView(R.layout.main_listview);
         ListView listView=(ListView) findViewById(R.id.lv);
