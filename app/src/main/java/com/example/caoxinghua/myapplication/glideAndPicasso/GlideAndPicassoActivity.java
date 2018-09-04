@@ -64,8 +64,8 @@ public class GlideAndPicassoActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initData(){
         testGlide();
-        testPicasso();
-        testFresco();
+//        testPicasso();
+//        testFresco();
     }
     private void testGlide(){
         //加载https

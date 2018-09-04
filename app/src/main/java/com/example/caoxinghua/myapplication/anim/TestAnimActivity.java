@@ -2,17 +2,25 @@ package com.example.caoxinghua.myapplication.anim;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.example.caoxinghua.myapplication.R;
 
 public class TestAnimActivity extends AppCompatActivity {
     private ImageView animIv;
+    private LottieAnimationView lottieAnimationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +30,7 @@ public class TestAnimActivity extends AppCompatActivity {
     }
     private void initView(){
         animIv= (ImageView) findViewById(R.id.animIv);
+        lottieAnimationView= (LottieAnimationView) findViewById(R.id.lottieView);
         // 帧动画
 //        animIv.setImageResource(R.drawable.test);
 
@@ -40,5 +49,53 @@ public class TestAnimActivity extends AppCompatActivity {
        ObjectAnimator animator=ObjectAnimator.ofFloat(animIv,"rotation",0,360);
        animator.setDuration(1000);
        animator.start();
+//        lottieAnimationView.setAnimation("Logo/LogoSmall.json");
+        lottieAnimationView.loop(true);
+        //监听动画状态
+        lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                Log.i("xxx","anim start");
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Log.i("xxx","anim end");
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                Log.i("xxx","anim cancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                Log.i("xxx","anim repeat");
+            }
+        });
+        lottieAnimationView.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+//                Log.i("xxx","anim update");
+            }
+        });
+        LottieComposition.Factory.fromAssetFileName(this, "AndroidWave.json", new OnCompositionLoadedListener() {
+            @Override
+            public void onCompositionLoaded(@Nullable LottieComposition composition) {
+                lottieAnimationView.setComposition(composition);
+                lottieAnimationView.playAnimation();
+            }
+        });
+
+
+//        lottieAnimationView.playAnimation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(lottieAnimationView!=null){
+            lottieAnimationView.cancelAnimation();
+        }
     }
 }

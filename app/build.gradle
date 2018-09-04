@@ -10,15 +10,34 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        ndk {
-            moduleName "JNISample"    //生成的so名字
-            abiFilters "armeabi-v7a", "x86", "arm64-v8a" //输出指定三种abi体系结构下的so库
-        }
+        multiDexEnabled true
+
+//        ndk {
+//            moduleName "JNISample"    //生成的so名字
+//            abiFilters "armeabi-v7a", "x86", "arm64-v8a" //输出指定三种abi体系结构下的so库
+//        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file("GOME.keystore")
+            storePassword "www.gome.com.cn"
+            keyAlias "android.keystore"
+            keyPassword "www.gome.com.cn"
+            v2SigningEnabled false
+        }
+
+        debug {
+            storeFile file("GOME.keystore")
+            storePassword "www.gome.com.cn"
+            keyAlias "android.keystore"
+            keyPassword "www.gome.com.cn"
+            v2SigningEnabled false
         }
     }
     dataBinding {
@@ -36,12 +55,15 @@ android {
 repositories {
     mavenCentral()
     flatDir { dirs 'libs' } /**在libs文件夹下找aar文件*/
-    maven {
-        //  url 'http://10.69.213.76:8081/nexus/content/repositories/snapshots/'
-        url 'http://10.69.213.76:8081/nexus/content/repositories/releases/'
-
-    }
+//    maven {
+//        //  url 'http://10.69.213.76:8081/nexus/content/repositories/snapshots/'
+//        url 'http://10.69.213.76:8081/nexus/content/repositories/releases/'
+//
+//    }
 }
+
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/BaiduAppX.jar')
@@ -52,6 +74,7 @@ dependencies {
     /**编译ijkplayer-java-release.aar文件*/
     //    compile 'com.dodola:rocoo:1.1'
     compile project(':mylibrary')
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'cn.com.gomeplus.ad:gomeplus-ad-SDK:2.2.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -69,7 +92,15 @@ dependencies {
     compile 'com.alipay.euler:andfix:0.5.0@aar'
     compile 'com.android.support:percent:24.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.facebook.fresco:fresco:0.9.0+'
+    compile 'com.facebook.fresco:fresco:0.9.0'
     compile 'com.airbnb.android:lottie:2.1.2'
+    compile 'com.gome.mcp:login:1.0.6'
+    compile 'com.gome.mcp:sec-mmb:2.2.612'
+    compile 'cn.com.gomeplus.danmu:gomeplus-danmu:1.0.0.42-SNAPSHOT'
+    compile 'cn.com.gomeplus.player:gomeplus-player:1.0.9'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.amap.api:location:4.1.0'
+
 }
+

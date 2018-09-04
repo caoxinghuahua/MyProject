@@ -3,7 +3,10 @@ package com.example.caoxinghua.myapplication.listview;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.caoxinghua.myapplication.R;
 
@@ -14,7 +17,7 @@ import java.util.List;
 public class ListViewActivity extends Activity {
     private List<String> list=new ArrayList<String>();
     private MyAdapter adapter;
-    private ListView listView;
+    private MyListView listView;
     private String []imgUrls={"http://img.my.csdn.net/uploads/201508/05/1438760758_3497.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760758_6667.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760757_3588.jpg",
@@ -63,12 +66,18 @@ public class ListViewActivity extends Activity {
         initView();
     }
     private void initView(){
-        listView= (ListView) findViewById(R.id.listView);
+        listView= (MyListView) findViewById(R.id.listView);
         for(int i=0;i<imgUrls.length;i++){
             list.add(imgUrls[i]);
         }
         adapter=new MyAdapter(this,list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ListViewActivity.this,"click",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

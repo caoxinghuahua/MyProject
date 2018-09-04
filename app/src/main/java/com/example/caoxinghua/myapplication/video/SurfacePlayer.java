@@ -49,7 +49,7 @@ public class SurfacePlayer extends AppCompatActivity implements SurfaceHolder.Ca
     private int screenW;
     private int screenH;
     private RelativeLayout video_parent_rl;
-    private String netUrl="http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai.com/D046015255134077DDB3ACA0D7E68D45.flv";
+    private String netUrl="http://gvsout.pre.video.api/video/-7SK-QmF9TzsyYkp1PxsM-416zJ1ie0RR5ClwyrvEMk.m3u8";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,12 @@ public class SurfacePlayer extends AppCompatActivity implements SurfaceHolder.Ca
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.setOnSeekCompleteListener(this);
+            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+                @Override
+                public void onBufferingUpdate(MediaPlayer mp, int percent) {
+
+                }
+            });
             if (Build.VERSION.SDK_INT >= 23) {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);

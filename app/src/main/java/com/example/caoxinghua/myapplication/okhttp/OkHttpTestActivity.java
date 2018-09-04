@@ -23,13 +23,15 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 public class OkHttpTestActivity extends AppCompatActivity {
-    private String url = "http://flight-pre.gomeplus.com/flight?";
+    private String url = "https://flight.gomeplus.com/flight?";
     private String imageUrl = "http://pic5.zhongsou.com/img?id=522f8c6e488097cef53!sy";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
         }
         NetUtils.getPostData(url, map, new NetUtils.HttpCallBack<String>() {
         @Override public void success(String object) {
-        //                Log.i("xxx", "data:" + object);
+                      Log.i("xxx", "data:" + object);
         }
 
         @Override public void error(String error) {
@@ -85,6 +87,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
 
     private void testOkhttp(String slotId) {
         OkHttpClient httpClient = new OkHttpClient();
+//        httpClient.setProxy(Proxy.NO_PROXY);
         //type=1 同步get 2异步get 3同步post 4异步post
         //同步时不能在主线程直接调用
         int type = 4;
@@ -142,18 +145,27 @@ public class OkHttpTestActivity extends AppCompatActivity {
                 RequestBody requestBody = null;
                 if (flag == 1) {
                     requestBody = new FormEncodingBuilder()
-                            .add("slotId", ""+slotId)
-                            .add("requestType", "2")
+//                            .add("slotId", ""+slotId)
+//                            .add("requestType", "2")
+                            .add("deviceId","53d512452404d363")
+                            .add("deviceIdType","ANDROID_ID")
+                            .add("deviceType","Android")
+                            .add("pushToken","Ahefb1rKwtuwAKnOETMZlTOklneUR4_syIlTFrSB28w8")
                             .build();
                 } else if (flag == 2) {
 
                     JSONObject object = new JSONObject();
-                    object.put("slotId", ""+slotId);
-                    object.put("requestType", "2");
-                    requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), object.toString());
+//                    object.put("slotId", ""+slotId);
+//                    object.put("requestType", "2");
+                    object.put("deviceId","53d512452404d363");
+                    object.put("deviceIdType","ANDROID_ID");
+                    object.put("deviceType","Android");
+                    object.put("pushToken","Ahefb1rKwtuwAKnOETMZlTOklneUR4_syIlTFrSB28w8");
+                    String content="https://m-discovery.gomeplus.com/product/40523.html?p=ZSldnq8ZTRxVUkeSrklWEsmWQAbdVUBYCqJ21ubdr6YwPAj6bb2Hxin0Tgt3vjOZTBt1T94rrFZ++/mTJSiMIb6OSWTqBg40i1fs0YC6kJgHBblOFmMVQh99N+O01bSU6agqX7BHej2mCXucJ/QWPtYXZCuwJQE6ieY7Pf4xKqT1GWbFxig4/UElwvBckKVm3mR+ZVF0IlGSKkF1J5xD1a+7dFIPrhC8I2vjgGx+8FQ+/ptech/dP95CbE7pHLB2&q=///gKIcUOJRt94EslsYATaFT0cXYs1+Er9tEkXIsNdW1xXEfkW26TeN3XOl4V+mwlXxCi5AxLo708npUF8bTTetDAeQd4n2W/Cc8uQLOMdNa3ITHbuYBj0SgjcFxsyeSv7JhVbitOGVPltVuCnZe3t43XVshEGDv8ZN3DF2XZRGfoCA994lOPRbyXgDHnFQHZdbegVJ2ihxQ02dYhBV5N6MrdswVAtQl0RvLgLbUxSynBINmzPefeeZxj2gujiZR2v+RBh5SY4qgHMfoUC1OiSbH4cAEIkOYhSQ+v5fE2OzSZmzyOGHGHGgyZMzZhOgjtBumsqyOZ193JtsflaKxZSeuCgzU/ScVl4DsgR8gUyEO60K9pwApMnYVKR/Oswq8AmowcBDRlTaIQW4Aye63akUCaBSIqT8IVZnkqwkIcz797AFG2ww+QO80PV+q64GG8GsulnPqkeyPL3aMth94Tzdo57gwAhhq7LFm0v9JPQzI6UHAhnCgnRhzJNoBo3A7QHYVNnAAS3/z4qCf4wnvzglIrhTodsYvrtjSPvEk+OQUZOXdxVjvwFOmrSGvlnt28qbMdXG3bBizcEh/4UgunQ==&s=Du+h74W/uT2KvmUncZ9oc7rerFpH90Efh2+Ug5cuqgN5+viVpkZya+2wc4fh2gp2GLCFFmgf7pFAQlA5Ino2BOzqRhEgCNtyhoWU5+5k+N3D1UjI5mh8IXh0Al6sWedsr+oSYsMnJw5V5s3MUOykxg==";
+                    requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), content);
                 }
 
-                final Request request = new Request.Builder().url(url)
+                final Request request = new Request.Builder().url("https://goawall.gome.com.cn/short/get")
                         .post(requestBody)
                         .build();
                 final long start=System.currentTimeMillis();
@@ -168,7 +180,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response response) throws IOException {
                         Log.i("xxx", "end:" + (System.currentTimeMillis()-start));
-//                        Log.i("xxx", "post async response:" + response.body().string() + "\n" + response.headers());
+                       Log.i("xxx", "post async response:" + response.body().string());
                     }
                 });
             }

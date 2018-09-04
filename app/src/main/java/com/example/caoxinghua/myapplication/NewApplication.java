@@ -1,8 +1,10 @@
 package com.example.caoxinghua.myapplication;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.alipay.euler.andfix.patch.PatchManager;
@@ -55,4 +57,9 @@ public class NewApplication extends Application {
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

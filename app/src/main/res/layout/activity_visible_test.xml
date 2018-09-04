@@ -42,7 +42,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon"/>
             <com.example.caoxinghua.myapplication.okhttp.MyImageView
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/iv3"
                 android:scaleType="fitXY"
@@ -55,7 +55,7 @@
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="800dp"
-        >
+        android:visibility="gone">
 
     </com.example.caoxinghua.myapplication.okhttp.MyListView>
 </RelativeLayout>

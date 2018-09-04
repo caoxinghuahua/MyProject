@@ -8,12 +8,15 @@ import com.example.caoxinghua.myapplication.Entity.RetrofitBean;
 import com.example.caoxinghua.myapplication.R;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 import java.util.StringTokenizer;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +31,41 @@ public class RetrofitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit);
 //        testRetrofit();
-        test2();
+//        test2();
+        test3();
+    }
+
+    private void test3(){
+        Retrofit retrofit=new Retrofit.Builder()
+                .client(new OkHttpClient())
+                .baseUrl("http://m-awall.stage.ds.gome.com.cn?id=4")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService=retrofit.create(ApiService.class);
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id", 4);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),object.toString());
+        Call<JsonObject> objectCall=apiService.getDiamondById();
+        objectCall.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.i("xxx","vvv:"+response.body());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable throwable) {
+                Log.i("xxx","vvvv:"+throwable.toString());
+            }
+        });
     }
     private void testRetrofit(){
       try{
@@ -95,6 +132,9 @@ public class RetrofitActivity extends AppCompatActivity {
                   Log.i("xxx","exec1:"+t.toString());
               }
           });
+
+
+
       }catch (Exception e){
           Log.i("xxx","e:"+e.toString());
       }

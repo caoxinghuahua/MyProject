@@ -213,7 +213,16 @@
         <activity android:name=".webp.WebpActivity" />
         <activity android:name=".ndk.JniActivity" />
         <activity android:name=".asynctask.AsyncTaskActivity" />
-        <activity android:name=".anim.TestAnimActivity"></activity>
+        <activity android:name=".anim.TestAnimActivity" />
+        <activity android:name=".download.DownLoadMainActivity" />
+        <activity android:name=".sdk.VideoPlayerActivity">
+
+        </activity>
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="611491b766e7a66a1f14708f5149e709"/>//开发者申请的key
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService">
+        </service>
     </application>
 
 </manifest>
