@@ -37,6 +37,7 @@ android {
             keyAlias "android.keystore"
             keyPassword "www.gome.com.cn"
             v2SigningEnabled false
+
         }
 
         debug {
