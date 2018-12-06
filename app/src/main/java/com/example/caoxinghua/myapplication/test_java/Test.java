@@ -27,17 +27,19 @@ public class Test {
        for(int i=0;i<10;i++){
 //           a.setM(i);
        }
-       int arr[]={3,18,13,45,39,70,98,5,100,1};
-//       buddleSort(arr);
+       int arr[]={22,43,15,12,66,33,21};
+//        buddleSort(arr);
+//        testBuddle(arr);
 //       insertSort(arr);
 //        sheelSort(arr);
-        selectSort(arr);
-        quick(arr);
+//        selectSort(arr);
+//       quick(arr);
+        testInsert(arr);
     }
     //冒泡排序
     public static void buddleSort(int a[]){
         int len=a.length;
-        for(int i=0;i<len-1;i++){
+        for(int i=0;i<len-1;i++){ 
             for(int j=0;j<len-i-1;j++){
                 if(a[j]>a[j+1]){
                     int temp=a[j+1];
@@ -136,5 +138,38 @@ public class Test {
         }
         a[low]=key;
         return low;
+    }
+    public static void testBuddle(int a[]){
+        //冒泡
+        int size=a.length;
+        for(int i=0;i<size-1;i++){
+            for(int j=0;j<size-1-i;j++){
+                if(a[j]>a[j+1]){
+                    int temp=a[j+1];
+                    a[j+1]=a[j];
+                    a[j]=temp;
+                }
+            }
+        }
+        print(a);
+    }
+    public static void testInsert(int a[]){//直接插入排序
+        int size=a.length;
+        int temp;
+        for(int i=1;i<=size-1;i++){
+            temp=a[i];
+            int index=i;
+            for(int j=i;j>0;j--){
+                if(temp<a[j-1]){
+                    a[j]=a[j-1];
+                    index=j-1;
+                }
+            }
+            a[index]=temp;
+        }
+        print(a);
+    }
+    public void test(){
+        testInsert( new int[]{1});
     }
 }

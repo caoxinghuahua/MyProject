@@ -2,7 +2,10 @@ package com.example.caoxinghua.myapplication.service;
 
 import android.app.Notification;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -118,5 +121,10 @@ public class MyService extends Service {
         stopForeground(true);
 //        Intent intent=new Intent(this,MyService.class);
 //        startService(intent);
+    }
+
+    private void testSensor(){
+        SensorManager sensorManager= (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor=sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
     }
 }

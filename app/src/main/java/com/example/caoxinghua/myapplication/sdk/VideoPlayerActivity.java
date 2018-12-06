@@ -10,19 +10,19 @@ import com.example.caoxinghua.myapplication.R;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.com.gomeplus.player.listener.ExtPlayerListeners;
-import cn.com.gomeplus.player.listener.PlayerListeners;
-import cn.com.gomeplus.player.listener.PlayerListeners.OnCompletionListener;
-import cn.com.gomeplus.player.presenter.PlayerPresenter;
-import cn.com.gomeplus.player.widget.GomeplusPlayer;
+//import cn.com.gomeplus.player.listener.ExtPlayerListeners;
+//import cn.com.gomeplus.player.listener.PlayerListeners;
+//import cn.com.gomeplus.player.listener.PlayerListeners.OnCompletionListener;
+//import cn.com.gomeplus.player.presenter.PlayerPresenter;
+//import cn.com.gomeplus.player.widget.GomeplusPlayer;
 
-public class VideoPlayerActivity extends AppCompatActivity implements ExtPlayerListeners.OnPlayerCompletionListener {
-    private GomeplusPlayer gomeplusPlayer;
+public class VideoPlayerActivity extends AppCompatActivity {
+//    private GomeplusPlayer gomeplusPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
-        gomeplusPlayer= (GomeplusPlayer) findViewById(R.id.player);
+//        gomeplusPlayer= (GomeplusPlayer) findViewById(R.id.player);
 //        Map<String, Object> map = new HashMap<>();
 //        map.put(GomeplusPlayer.ENVIRONMENT, 1);        //0:开发环境, 1:预生产环境, 2:生产环境
 //        map.put(GomeplusPlayer.FULL_SCREEN, false);    //true:允许全屏, false:不允许全屏
@@ -31,16 +31,16 @@ public class VideoPlayerActivity extends AppCompatActivity implements ExtPlayerL
 //        map.put(GomeplusPlayer.DANMUON, false);           //true:显示弹幕, false:隐藏弹幕
 //
 //        PlayerPresenter.getInstance().initPlayer(this, map);
-        GomeplusPlayer.setPlayerEnvironment(1);
-        gomeplusPlayer.play("4809",1);
-        gomeplusPlayer.setCompletionListener(this);
+//        GomeplusPlayer.setPlayerEnvironment(1);
+//        gomeplusPlayer.play("4809",1);
+//        gomeplusPlayer.setCompletionListener(this);
 
     }
 
 
-    @Override
-    public void onPlayerCompletion(String s, int i) {
-        Log.i("VideoPlayerActivity",s);
-        Log.i("VideoPlayerActivity",s);
-    }
+//    @Override
+//    public void onPlayerCompletion(String s, int i) {
+//        Log.i("VideoPlayerActivity",s);
+//        Log.i("VideoPlayerActivity",s);
+//    }
 }

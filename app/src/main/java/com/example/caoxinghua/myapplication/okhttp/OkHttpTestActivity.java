@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.support.design.widget.TabLayout;
 
@@ -32,18 +34,26 @@ import java.util.Set;
 
 public class OkHttpTestActivity extends AppCompatActivity {
     private String url = "https://flight.gomeplus.com/flight?";
-    private String imageUrl = "http://pic5.zhongsou.com/img?id=522f8c6e488097cef53!sy";
+    private String imageUrl = "http://gfs17.gomein.net.cn/T1PpbgB5Jv1RCvBVdK.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.okhttp_main);
 
         ImageView imageView=(ImageView) findViewById(R.id.iv);
-//        Glide.with(imageView.getContext()).load(imageUrl).into(imageView);
+        Glide.with(imageView.getContext()).load(imageUrl).into(imageView);
 
         String path = Environment.getDataDirectory().getAbsolutePath() + "\n" + Environment.getDownloadCacheDirectory().getAbsolutePath() + "\n"
                 + Environment.getRootDirectory().getAbsolutePath() + "\n" + Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.i("xxx", "path:" + path);
+
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         for(int i=0;i<1;i++){
             testOkhttp(""+(10014+i));
         }

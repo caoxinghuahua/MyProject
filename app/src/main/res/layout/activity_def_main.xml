@@ -8,16 +8,20 @@
     >
     <com.example.caoxinghua.myapplication.defview.FlowLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:id="@+id/flowLayout"
         app:horizontial_spacing="5dp"
-        app:vertical_spacing="5dp">
+        app:vertical_spacing="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
     </com.example.caoxinghua.myapplication.defview.FlowLayout>
     <com.example.caoxinghua.myapplication.defview.MyViewGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/flowLayout">
+        android:layout_below="@id/flowLayout"
+        android:id="@+id/vg"
+        android:visibility="gone">
         <com.example.caoxinghua.myapplication.defview.MyView
             android:id="@+id/myView"
             android:layout_width="300dp"
@@ -25,5 +29,61 @@
             android:background="#cccccc"
            />
     </com.example.caoxinghua.myapplication.defview.MyViewGroup>
+    <com.example.caoxinghua.myapplication.defview.MyTextView
+        android:id="@+id/my_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/vg"
+        android:text="jjkljjjkjkljk"
+        android:textSize="17dp"
+        android:textColor="@color/gray"
+        app:addText="网页链接"
+        />
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/my_tv"
+        android:textSize="17dp"
+        android:textColor="@color/gray" />
+    <com.borjabravo.readmoretextview.ReadMoreTextView
+        android:id="@+id/readMore_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/my_tv"
+        android:textSize="17dp"
+        android:textColor="@color/gray"
+        app:trimLength="56"
+        app:trimCollapsedText="全文"
+        app:trimExpandedText="网页链接"
+        app:showTrimExpandedText="true"
+        app:trimMode="trimModeLength"/>
+
+
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/readMore_tv">
+        <LinearLayout
+            android:id="@+id/contentLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/color_eeeeee">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 
 </RelativeLayout>

@@ -3,15 +3,12 @@ package com.example.caoxinghua.myapplication;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alipay.euler.andfix.patch.PatchManager;
 import com.example.caoxinghua.myapplication.hotfix.PatchDownloadIntentService;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
-import java.io.File;
 
 
 public class NewApplication extends Application {
@@ -48,6 +45,10 @@ public class NewApplication extends Application {
 //            e.printStackTrace();
 //        }
 
+        //init router
+        initRouter(this);
+        initBugly();
+
     }
     public PatchManager getPatchManager(){
         if(patchManager!=null){
@@ -61,5 +62,16 @@ public class NewApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    public void initRouter(Application application){
+        if(BuildConfig.DEBUG){
+            ARouter.openLog();     // 打印日志
+            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        }
+        ARouter.init(application);
+    }
+    private void initBugly(){
+//        CrashReport.initCrashReport(getApplicationContext(), "ddac4b61c0", false);   //异常统计接入方式
     }
 }

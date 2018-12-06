@@ -6,9 +6,14 @@
     <declare-styleable name="FlowLayout">
         <attr name="horizontial_spacing" format="dimension"/>
         <attr name="vertical_spacing" format="dimension"/>
+        <attr name="row_num" format="integer"/>
     </declare-styleable>
     <declare-styleable name="MyView">
         <attr name="layout_width_percent" format="float"/>
         <attr name="layout_height_percent" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="MyTextView">
+        <attr name="mode" format="integer"/>
+        <attr name="addText" format="string"/>
     </declare-styleable>
 </resources>

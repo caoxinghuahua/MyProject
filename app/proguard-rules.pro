@@ -21,3 +21,8 @@
   public <init>();
 }
 -keep class com.example.caoxinghua.myapplication.glideAndPicasso.OkHttpGlideModule
+-keep public class com.alibaba.android.arouter.routes.**{*;}
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}

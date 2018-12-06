@@ -114,5 +114,4 @@ public class MyImageView extends ImageView {
         super.onScrollChanged(l, t, oldl, oldt);
         Log.i("xxx","gundong");
     }
-
 }

@@ -21,4 +21,7 @@ public class AppUtils {
         }
 //        return "0";
     }
+    public int add(int a,int b){
+        return a+b;
+    }
 }

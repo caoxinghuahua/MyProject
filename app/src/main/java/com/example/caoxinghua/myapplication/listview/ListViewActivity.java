@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.caoxinghua.myapplication.R;
 
 import java.util.ArrayList;
@@ -16,8 +18,8 @@ import java.util.List;
 
 public class ListViewActivity extends Activity {
     private List<String> list=new ArrayList<String>();
-    private MyAdapter adapter;
-    private MyListView listView;
+    private SlideAdapter adapter;
+    private SlideListView listView;
     private String []imgUrls={"http://img.my.csdn.net/uploads/201508/05/1438760758_3497.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760758_6667.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760757_3588.jpg",
@@ -66,16 +68,38 @@ public class ListViewActivity extends Activity {
         initView();
     }
     private void initView(){
-        listView= (MyListView) findViewById(R.id.listView);
-        for(int i=0;i<imgUrls.length;i++){
+        listView= (SlideListView) findViewById(R.id.listView);
+        for(int i=0;i<10;i++){
             list.add(imgUrls[i]);
         }
-        adapter=new MyAdapter(this,list);
+//        adapter=new MyAdapter(this,list);
+        adapter=new SlideAdapter(this,list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(ListViewActivity.this,"click",Toast.LENGTH_SHORT).show();
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState){
+                    case SCROLL_STATE_IDLE://停止滑动
+                        Glide.with(ListViewActivity.this).resumeRequests();
+                        break;
+                    case SCROLL_STATE_FLING://惯性滑动
+                        Glide.with(ListViewActivity.this).pauseRequests();
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL://触摸滑动
+                        Glide.with(ListViewActivity.this).pauseRequests();
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
     }

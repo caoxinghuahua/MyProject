@@ -16,6 +16,7 @@ public class FlowLayout extends ViewGroup {
     private static  final int DEFAULT_VERTICAL_SPACING=5;
     private int horizontial_spacing;
     private int vertical_spacing;
+    private int row_num;
     public FlowLayout(Context context) {
         super(context);
     }
@@ -24,8 +25,8 @@ public class FlowLayout extends ViewGroup {
         super(context, attrs);
         TypedArray a=context.obtainStyledAttributes(attrs,R.styleable.FlowLayout);
         horizontial_spacing=a.getDimensionPixelSize(R.styleable.FlowLayout_horizontial_spacing,DEFAULT_HORIZONTIAL_SPACING);
-        vertical_spacing=a.getDimensionPixelSize(R.styleable.FlowLayout_vertical_spacing,vertical_spacing);
-
+        vertical_spacing=a.getDimensionPixelSize(R.styleable.FlowLayout_vertical_spacing,DEFAULT_VERTICAL_SPACING);
+        row_num=a.getInteger(R.styleable.FlowLayout_row_num,Integer.MAX_VALUE);
         a.recycle();
     }
 
@@ -36,7 +37,7 @@ public class FlowLayout extends ViewGroup {
         int padleft=getPaddingLeft();
         int padTop=getPaddingTop();
         int padRight=getPaddingRight();
-        int padBottomm=getPaddingBottom();
+        int padBottom=getPaddingBottom();
 
         int childLeft=padleft;
         int childTop=padTop;
@@ -65,8 +66,8 @@ public class FlowLayout extends ViewGroup {
 
 
         }
-        int wanH=childTop+lineH+padBottomm;
-        setMeasuredDimension(myWidth,resolveSize(wanH,heightMeasureSpec));
+        int wanH=childTop+lineH+padBottom;
+        setMeasuredDimension(myWidth,resolveSize(wanH,heightMeasureSpec));//resolveSize根据提供的大小和模式返回相应的值
 
 
     }
@@ -83,7 +84,7 @@ public class FlowLayout extends ViewGroup {
         int childTop = paddingTop;
 
         int lineHeight = 0;
-
+        int row=1;
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
             View childView = getChildAt(i);
 
@@ -91,15 +92,20 @@ public class FlowLayout extends ViewGroup {
                 continue;
             }
 
+
             int childWidth = childView.getMeasuredWidth();
             int childHeight = childView.getMeasuredHeight();
 
             lineHeight = Math.max(childHeight, lineHeight);
 
-            if (childLeft + childWidth + paddingRight > myWidth) {
+            if (childLeft + childWidth + horizontial_spacing > myWidth) {
                 childLeft = paddingLeft;
                 childTop += vertical_spacing + lineHeight;
                 lineHeight = childHeight;
+                row++;
+                if(row>2){
+                    break;
+                }
             }
 
             childView.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);

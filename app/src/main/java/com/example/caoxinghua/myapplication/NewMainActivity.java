@@ -1,6 +1,5 @@
 package com.example.caoxinghua.myapplication;
 
-import android.*;
 import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,27 +8,28 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.gomeplus.meixin.ad.manger.MXAdsInstance;
-import com.gomeplus.meixin.ad.view.MXAdsBannerView;
+import com.example.caoxinghua.myapplication.base.BaseViewHolder;
+import com.example.caoxinghua.myapplication.base.CommonItemType;
+import com.example.caoxinghua.myapplication.base.MultiBaseAdapter;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,12 +56,27 @@ public class NewMainActivity extends AppCompatActivity {
         testDateFile();
         initLocation();
         startLocation();
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = this.getPackageManager()
+                    .getApplicationInfo(getPackageName(),
+                            PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String msg=appInfo.metaData.getString("UMENG_CHANNEL");
+        Log.d("xxx", " msg == " + msg );
+        //测试bugly接入是否成功
+//        CrashReport.testJavaCrash();
     }
     private void initView(){
 
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+//        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
+//        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -72,14 +87,56 @@ public class NewMainActivity extends AppCompatActivity {
         
     }
     private void init(){
-        NewMainAdapter adapter=new NewMainAdapter(this,list);
+     /**  BaseRecyclerAdapter<JumpBean> adapter=new BaseRecyclerAdapter<JumpBean>(this,R.layout.layout_newmain_item,list) {
+            @Override
+            public void covert(BaseViewHolder holder, JumpBean bean) {
+                holder.setText(R.id.content,bean.getName());
+            }
+        };*/
+        MultiBaseAdapter<JumpBean> adapter=new MultiBaseAdapter<JumpBean>(this, list, new CommonItemType<JumpBean>() {
+            @Override
+            public int getItemViewType(int pos, JumpBean bean) {
+                if(bean.getType()==0) {return 0;
+                }else {
+                    return 1;
+                }
+            }
+
+            @Override
+            public int getLayoutId(int type) {
+                if(type==0) {
+                    return R.layout.layout_newmain_item;
+                }else {
+                    return R.layout.layout_newmain_item2;
+                }
+
+            }
+        }) {
+            @Override
+            public void covert(BaseViewHolder holder, JumpBean bean) {
+                if(holder.getItemViewType()==0){
+                    holder.setText(R.id.content,bean.getName());
+                }else {
+                    holder.setText(R.id.content2,bean.getName());
+                }
+            }
+        };
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent intent=new Intent();
-                intent.setComponent(new ComponentName("com.example.caoxinghua.myapplication",list.get(position).getJumpStr()));
-                startActivity(intent);
+              int type=list.get(position).getType();
+                switch (type){
+                    case 0:
+                        String path=list.get(position).getJumpStr();
+                        ARouter.getInstance().build(path).navigation(NewMainActivity.this);
+                        break;
+                    case 1:
+                        Intent intent=new Intent();
+                        intent.setComponent(new ComponentName("com.example.caoxinghua.myapplication",list.get(position).getJumpStr()));
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }
@@ -88,163 +145,225 @@ public class NewMainActivity extends AppCompatActivity {
 
         //test
         JumpBean bean=new JumpBean();
+        bean.setType(1);
         bean.setName("全屏test fix");
         bean.setJumpStr("com.example.caoxinghua.myapplication.MainActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("MVVM 测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.MvvmTestActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("DrawLayout测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.DrawLayoutTestActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("RxJava测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.rxjava.TestRxJavaActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("OkHttp测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.okhttp.OkHttpTestActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestVideo");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("SurfacePlayer");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.SurfacePlayer");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestVideo");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("TestIjk");
         bean.setJumpStr("com.example.caoxinghua.myapplication.TestIjk");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("自定义keyboard");
         bean.setJumpStr("com.example.caoxinghua.myapplication.keyboard.KeydemoActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("HotFix热修复");
         bean.setJumpStr("com.example.caoxinghua.myapplication.hotfix.FixMainActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("可见曝光");
         bean.setJumpStr("com.example.caoxinghua.myapplication.okhttp.VisibleTestActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Retrofit");
         bean.setJumpStr("com.example.caoxinghua.myapplication.retrofit.RetrofitActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("自定义瀑布流");
         bean.setJumpStr("com.example.caoxinghua.myapplication.defview.DefMainActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("GlideAndPicasso使用");
         bean.setJumpStr("com.example.caoxinghua.myapplication.glideAndPicasso.GlideAndPicassoActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Constraint约束使用");
         bean.setJumpStr("com.example.caoxinghua.myapplication.okhttp.ConstraintActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("MediaRecoder使用");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.RecoderActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("录制video");
         bean.setJumpStr("com.example.caoxinghua.myapplication.video.TestRecordVideoActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("蓝牙使用");
         bean.setJumpStr("com.example.caoxinghua.myapplication.bluetooth.TestBlueToothActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("allowBackup测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.allowbackup.TestAllowBackupActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("NFC测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.nfc.TestNfcActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Service测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.service.TestServiceActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("Activity测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.activity.First_Activity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("AIDL测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.aidl.TestAIDLActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("广播测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.receiver.TestReceiverActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("listview图片错位问题");
         bean.setJumpStr("com.example.caoxinghua.myapplication.listview.ListViewActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(0);
         bean.setName("WebP测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.webp.WebpActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("JNI测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.ndk.JniActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("AsyncTask测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.asynctask.AsyncTaskActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("anim测试");
         bean.setJumpStr("com.example.caoxinghua.myapplication.anim.TestAnimActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("视频sdk");
         bean.setJumpStr("com.example.caoxinghua.myapplication.sdk.VideoPlayerActivity");
         list.add(bean);
 
         bean=new JumpBean();
+        bean.setType(1);
         bean.setName("listview嵌套scrollview点击事件处理");
         bean.setJumpStr("com.example.caoxinghua.myapplication.listview.ListViewActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(1);
+        bean.setName("图片选择和上传");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.pick.PickActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(1);
+        bean.setName("唤起第三方地图导航");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.thirdnav.NavActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(0);
+        bean.setName("butterknife and dragger");
+        bean.setJumpStr("/test/main");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(1);
+        bean.setName("加载超大图片时分段加载");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.bitmap.LargeImageActivity");
+        list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(1);
+        bean.setName("事件分发处理");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.dispatch.DispatchActivity");
         list.add(bean);
     }
     private void testDateFile(){
@@ -388,5 +507,18 @@ public class NewMainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         destroyLocation();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){
+            Log.i("xxx","key back");
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -9,7 +9,8 @@ buildscript {
 //        classpath  'com.dodola:rocoofix:1.2.6'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-//        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"
+//        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"c
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'  //添加这一行
     }
 }
 
@@ -29,7 +30,9 @@ allprojects {
         maven {
             url 'http://10.69.213.76:8081/nexus/content/repositories/snapshots/'
         }
-
+//   router
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.google.com' }
     }
 }
 

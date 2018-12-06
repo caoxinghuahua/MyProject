@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.caoxinghua.myapplication.listview.MyListView
+    <!--<com.example.caoxinghua.myapplication.listview.MyListView-->
+        <!--android:id="@+id/listView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"></com.example.caoxinghua.myapplication.listview.MyListView>-->
+    <com.example.caoxinghua.myapplication.listview.SlideListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.example.caoxinghua.myapplication.listview.MyListView>
+        android:layout_height="match_parent"
+        android:dividerHeight="30dp"
+        android:divider="@color/background_black"></com.example.caoxinghua.myapplication.listview.SlideListView>
 </LinearLayout>

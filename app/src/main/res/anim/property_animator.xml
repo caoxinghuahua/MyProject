@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+    <objectAnimator
+        android:propertyName="string"
+        android:duration="300"
+        android:valueFrom="100"
+        android:valueTo="300"
+        android:startOffset="20"
+        android:repeatCount="3"
+        />
+
+
+
+</set>
