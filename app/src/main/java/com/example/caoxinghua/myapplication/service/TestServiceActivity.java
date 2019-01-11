@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.caoxinghua.myapplication.R;
+
+import java.io.Serializable;
 
 public class TestServiceActivity extends AppCompatActivity implements View.OnClickListener{
     private Button startBt,stopBt,bindBt,unBindBt,accessBt;
@@ -42,6 +45,7 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
           }
         };
         tMessenger=new Messenger(handler);
+
 
     }
     private void initView(){
@@ -123,6 +127,8 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
         Intent intent=new Intent(this,MyService.class);
         bindService(intent,connection, Context.BIND_AUTO_CREATE);
 //        startService(intent);
+
+
     }
     @Override
     protected void onStop() {

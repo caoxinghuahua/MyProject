@@ -29,10 +29,10 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class VisibleTestActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -44,34 +44,20 @@ public class VisibleTestActivity extends AppCompatActivity {
         final ImageView imageView = (ImageView) findViewById(R.id.iv);
 
         final ImageView imageView1 = (ImageView) findViewById(R.id.iv1);
-        imageView1.setOnClickListener(new View.OnClickListener() {
+        final ImageView imageView2 = (ImageView) findViewById(R.id.iv2);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Point p = new Point();
-                getWindowManager().getDefaultDisplay().getSize(p);
-                int screenWidth = p.x;
-                int screenHeight = p.y;
-                Rect rect3 = new Rect(0, 0, screenWidth, screenHeight);
-                Log.i("xxx", "w: " + screenWidth + "h: " + screenHeight);
-                if (imageView1.getLocalVisibleRect(rect3)) {
-                    Log.i("xxx", "imageView1可见");
-                } else {
-                    Log.i("xxx", "imageView1不可见");
-                }
-            }
-        });
-        final MyImageView imageView2 = (MyImageView) findViewById(R.id.iv2);
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Rect rect = new Rect();
-                imageView2.getGlobalVisibleRect(rect);
+
                 Rect rect1 = new Rect();
-                boolean ivIs = imageView.getGlobalVisibleRect(rect1);
-                if (ivIs) {
-                    Log.i("xxx", "vvvvimageView可见");
+                boolean ivIs = imageView1.getGlobalVisibleRect(rect1);
+                Log.i("xxx", "w: " + rect1.width() + "h: " + rect1.height());
+                Log.i("xxx", "w: " + imageView1.getMeasuredWidth() + "h: " + imageView1.getMeasuredHeight());
+
+                if (isViewCovered(imageView1)) {
+                    Log.i("xxx", "imageView1不可见");
                 } else {
-                    Log.i("xxx", "vvvvimageView不可见");
+                    Log.i("xxx", "imageView1可见");
                 }
                 Point p = new Point();
                 getWindowManager().getDefaultDisplay().getSize(p);
@@ -79,15 +65,10 @@ public class VisibleTestActivity extends AppCompatActivity {
                 int screenHeight = p.y;
                 Rect rect3 = new Rect(0, 0, screenWidth, screenHeight);
                 Log.i("xxx", "w: " + screenWidth + "h: " + screenHeight);
-                if (imageView1.getLocalVisibleRect(rect3)) {
-                    Log.i("xxx", "imageView1可见");
-                } else {
-                    Log.i("xxx", "imageView1不可见");
-                }
-                if (imageView2.getLocalVisibleRect(rect3)) {
-                    Log.i("xxx", "imageView2可见");
-                } else {
+                if (isViewCovered(imageView2)) {
                     Log.i("xxx", "imageView2不可见");
+                } else {
+                    Log.i("xxx", "imageView2可见");
                 }
             }
         });
@@ -100,97 +81,65 @@ public class VisibleTestActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        scrollView.addLisSet(imageView2.getListener());
-        scrollView.addLisSet(imageView3.getListener());
-        scrollView.setScrollChangeLitener(new MyScrollView.ScrollChangeListener() {
-            @Override
-            public void onScrollChanged(int l, int t, int oldl, int oldt) {
-                for (Object object : scrollView.getSet()) {
-                    ((ImageListener) object).callBack();
-                }
-            }
-        });
-
-        final MyListView listView = (MyListView) findViewById(R.id.lv);
-        List<String> list=new ArrayList<String>();
-        for(int i=0;i<10;i++){
-            list.add("第 "+(i+1)+"条记录");
-        }
-        MyAdapter adapter=new MyAdapter(this,list);
-        listView.setAdapter(adapter);
-        listView.addLisSet(imageView2.getListener());
-        listView.addLisSet(imageView3.getListener());
-        listView.setScrollChangeLitener(new MyListView.ScrollChangeListener() {
-            @Override
-            public void onScrollChanged(int l, int t, int oldl, int oldt) {
-//                for (Object object : listView.getSet()) {
-//                    ((ImageListener) object).callBack();
-//                }
-            }
-        });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                for (Object object : listView.getSet()) {
-                    ((ImageListener) object).callBack();
-                }
-            }
-        });
-
     }
 
-    class MyAdapter extends BaseAdapter{
-        private Context context;
-        private List<String> list;
-        public MyAdapter(Context context, List<String> list){
-            this.context=context;
-            this.list=list;
-        }
-        @Override
-        public int getCount() {
-            return list.size();
-        }
 
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
+    private boolean isCover(View view) {
+
+        if (view.getVisibility() != View.VISIBLE) {
+            return true;
         }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
+        Rect rect = new Rect();
+        boolean visbleRect = view.getGlobalVisibleRect(rect);
+        if (!visbleRect) {
+            return true;
         }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if(convertView==null){
-                LinearLayout linearLayout=new LinearLayout(context);
-                LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                params.bottomMargin=10;
-                params.topMargin=10;
-                TextView textView=new TextView(context);
-                linearLayout.addView(textView,params);
-                textView.setTextColor(Color.BLACK);
-                convertView=linearLayout;
-                holder=new ViewHolder();
-                holder.tv=textView;
-                convertView.setTag(holder);
-            }else {
-
-                holder=(ViewHolder) convertView.getTag();
+        View cuttentView = view;
+        while (cuttentView.getParent() != null && cuttentView instanceof ViewGroup) {
+            if (((ViewGroup) cuttentView.getParent()).getVisibility() != View.VISIBLE) {
+                return true;
             }
+            cuttentView = (View) cuttentView.getParent();
+        }
+        return false;
+    }
+    public boolean isViewCovered(final View view) {
+        View currentView = view;
 
-            holder.tv.setText("content:     "+list.get(position));
-            return convertView;
+        Rect currentViewRect = new Rect();
+        boolean partVisible = currentView.getGlobalVisibleRect(currentViewRect);//当前view是否在屏幕可视区域（w,h）>)
+//        boolean totalHeightVisible = (currentViewRect.bottom - currentViewRect.top) >= view.getMeasuredHeight();
+//        boolean totalWidthVisible = (currentViewRect.right - currentViewRect.left) >= view.getMeasuredWidth();
+//        boolean totalViewVisible = partVisible && totalHeightVisible && totalWidthVisible;
+        // if any part of the view is clipped by any of its parents,return true
+        if (!partVisible) return true;
+
+        while (currentView.getParent() instanceof ViewGroup) {
+            ViewGroup currentParent = (ViewGroup) currentView.getParent();
+            // if the parent of view is not visible,return true
+            if (currentParent.getVisibility() != View.VISIBLE) return true;//判断父view的可见性
+
+            int start = indexOfViewInParent(currentView, currentParent);
+            for (int i = start + 1; i < currentParent.getChildCount(); i++) {
+                Rect viewRect = new Rect();
+                view.getGlobalVisibleRect(viewRect);
+                View otherView = currentParent.getChildAt(i);
+                Rect otherViewRect = new Rect();
+                otherView.getGlobalVisibleRect(otherViewRect);
+                // if view intersects its older brother(covered),return true
+                if (otherViewRect.contains(viewRect)&&otherView.getVisibility()==View.VISIBLE) return true;//判断当前view是否被包含及兄弟view的可见性
+            }
+            currentView = currentParent;
         }
-        class ViewHolder{
-            public TextView tv;
+        return false;
+    }
+    //找出当前view在父view中的index
+    private int indexOfViewInParent(View view, ViewGroup parent) {
+        int index;
+        for (index = 0; index < parent.getChildCount(); index++) {
+            if (parent.getChildAt(index) == view)
+                break;
         }
+        return index;
     }
 }

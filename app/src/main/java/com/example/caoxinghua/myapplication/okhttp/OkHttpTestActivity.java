@@ -1,5 +1,6 @@
 package com.example.caoxinghua.myapplication.okhttp;
 
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -93,6 +94,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
 
         }
         });
+
     }
 
     private void testOkhttp(String slotId) {
@@ -116,6 +118,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
                 final Request request = new Request.Builder().url(url + "slotId=10016&requestType=2")
                         .build();
                 Call call = httpClient.newCall(request);
+                call.cancel();
                 call.enqueue(new Callback() {
                     @Override
                     public void onFailure(Request request, IOException e) {

@@ -13,7 +13,8 @@
         app:horizontial_spacing="5dp"
         app:vertical_spacing="5dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:visibility="gone">
 
     </com.example.caoxinghua.myapplication.defview.FlowLayout>
     <com.example.caoxinghua.myapplication.defview.MyViewGroup

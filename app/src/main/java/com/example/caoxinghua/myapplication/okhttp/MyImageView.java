@@ -21,7 +21,7 @@ public class MyImageView extends ImageView {
 
     public MyImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setListener();
+//        setListener();
     }
 
     @Override

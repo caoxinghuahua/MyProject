@@ -35,6 +35,9 @@ public class Test {
 //        selectSort(arr);
 //       quick(arr);
         testInsert(arr);
+        String s1=new String("abc");
+        String s2=new String("abc");
+        String s3=new String("abcd");
     }
     //冒泡排序
     public static void buddleSort(int a[]){

@@ -118,4 +118,14 @@ public class FlowLayout extends ViewGroup {
         super.onDraw(canvas);
         Log.i("xxx","ondraw");
     }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+    }
 }

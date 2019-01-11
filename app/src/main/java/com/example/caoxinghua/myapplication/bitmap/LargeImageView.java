@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -58,16 +59,18 @@ public class LargeImageView extends ImageView implements GestureDetector.OnGestu
     public boolean onDown(MotionEvent e) {
         mLastX= (int) e.getRawX();
         mLastY= (int) e.getRawY();
+        Log.i("xxx","onDown");
         return true;
     }
 
     @Override
     public void onShowPress(MotionEvent e) {
-
+        Log.i("xxx","onShowPress");
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        Log.i("xxx","onSingleTapUp");
         return false;
     }
 
@@ -76,6 +79,7 @@ public class LargeImageView extends ImageView implements GestureDetector.OnGestu
         int x= (int) e2.getRawX();
         int y= (int) e2.getRawY();
         move(x,y);
+        Log.i("xxx","onScroll");
         return true;
     }
 
@@ -83,6 +87,7 @@ public class LargeImageView extends ImageView implements GestureDetector.OnGestu
     public void onLongPress(MotionEvent e) {
        mLastX= (int) e.getRawX();
        mLastY= (int) e.getRawY();
+        Log.i("xxx","onLongPress");
     }
 
     @Override
@@ -90,6 +95,7 @@ public class LargeImageView extends ImageView implements GestureDetector.OnGestu
         int x = (int) e2.getRawX();
         int y = (int) e2.getRawY();
         move(x, y);
+        Log.i("xxx","onFling");
         return true;
     }
     private void init(Context context){

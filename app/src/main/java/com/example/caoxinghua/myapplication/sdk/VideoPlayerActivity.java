@@ -1,5 +1,8 @@
 package com.example.caoxinghua.myapplication.sdk;
 
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +37,28 @@ public class VideoPlayerActivity extends AppCompatActivity {
 //        GomeplusPlayer.setPlayerEnvironment(1);
 //        gomeplusPlayer.play("4809",1);
 //        gomeplusPlayer.setCompletionListener(this);
+        HandlerThread handlerThread=new HandlerThread("my HanlerThread");
+        handlerThread.start();
+        final Handler handler=new Handler(handlerThread.getLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                Log.i("xxx","thread:"+Thread.currentThread().getClass());
+            }
+        };
 
+        final Handler handler1=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                Log.i("xxx","thread M:"+Thread.currentThread().getClass());
+            }
+        };
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(1);
+                handler1.sendEmptyMessage(1);
+            }
+        },3000);
     }
 
 

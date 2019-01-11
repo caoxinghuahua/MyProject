@@ -10,6 +10,8 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -150,5 +152,16 @@ public class MyTextView extends TextView {
     }
     interface ClickListener{
          void click();
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.i("xxx1","view dispatchTouchEvent");
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.i("xxx1","view onTouchEvent");
+        return super.onTouchEvent(event);
     }
 }

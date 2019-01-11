@@ -33,7 +33,7 @@ public class MyLayout extends LinearLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.i("xxx"," ViewGroup dispatchTouchEvent");
-
+        super.dispatchTouchEvent(ev);
         return false;
     }
 

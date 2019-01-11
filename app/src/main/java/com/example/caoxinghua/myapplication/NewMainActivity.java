@@ -365,6 +365,12 @@ public class NewMainActivity extends AppCompatActivity {
         bean.setName("事件分发处理");
         bean.setJumpStr("com.example.caoxinghua.myapplication.dispatch.DispatchActivity");
         list.add(bean);
+
+        bean=new JumpBean();
+        bean.setType(1);
+        bean.setName("手势拖动");
+        bean.setJumpStr("com.example.caoxinghua.myapplication.gesture.GestureActivity");
+        list.add(bean);
     }
     private void testDateFile(){
         File dir=this.getFilesDir();

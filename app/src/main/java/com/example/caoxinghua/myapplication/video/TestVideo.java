@@ -48,7 +48,12 @@ public class TestVideo extends AppCompatActivity implements View.OnClickListener
         }
 
         videoFragment.setRetainInstance(true);
-        transaction.add(R.id.frame, videoFragment,"video");
+        if(!videoFragment.isAdded()){
+            transaction.add(R.id.frame, videoFragment,"video");
+        }else {
+            transaction.show(videoFragment);
+        }
+        transaction.commit();
     }
 
     private void initView() {

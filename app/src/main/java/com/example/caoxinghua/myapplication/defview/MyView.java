@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -39,5 +40,15 @@ public class MyView extends View {
         Log.i("xxx2","w:"+w+"--"+getMeasuredWidth());
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.i("xxx1","view onTouchEvent");
+        return super.dispatchTouchEvent(event);
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.i("xxx1","view onTouchEvent");
+        return super.onTouchEvent(event);
+    }
 }

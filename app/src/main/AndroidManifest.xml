@@ -32,6 +32,8 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="permission.test" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <!-- 申请permission,否则第三方在申请使用权限时会异常提示deny permission -->
     <permission
         android:name="com.example.test.hua.MyContentProvider"
@@ -146,6 +148,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.First_Activity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_first_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -236,7 +239,8 @@
             android:label="@string/title_activity_base"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".bitmap.LargeImageActivity"></activity>
-        <activity android:name=".dispatch.DispatchActivity"></activity>
+        <activity android:name=".dispatch.DispatchActivity" />
+        <activity android:name=".gesture.GestureActivity"></activity>
     </application>
 
 </manifest>

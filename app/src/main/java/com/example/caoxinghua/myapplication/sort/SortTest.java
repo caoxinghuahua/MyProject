@@ -31,5 +31,29 @@ public class SortTest {
         binarySortTree.unRePreOrder(binarySortTree.root);
         binarySortTree.unRePostOrder(binarySortTree.root);
         binarySortTree.PostOrder2(binarySortTree.root);
+        int a[]={2,3,4,2,4,7,3,3,7,6};
+        System.out.println(Most(a));
+    }
+    public static  int Most(int a[]){
+        int len=a.length;
+        int index=0;
+        int count=1;
+        int tmp=1;
+        for(int i=0;i<len;i++){
+            index=i;
+            count=1;
+            for(int j=i+1;j<len;j++){
+                if(a[i]==a[j]){
+                    count++;
+                    index=j;
+                }
+            }
+            if(tmp<count){
+                tmp=count;
+                index=i;
+            }
+
+        }
+        return a[index];
     }
 }
