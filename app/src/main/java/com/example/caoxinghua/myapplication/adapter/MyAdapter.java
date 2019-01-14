@@ -53,4 +53,5 @@ public class MyAdapter<T> extends BaseAdapter {
         dataBinding.setVariable(variableId, list.get(position));
         return dataBinding.getRoot();
     }
+
 }

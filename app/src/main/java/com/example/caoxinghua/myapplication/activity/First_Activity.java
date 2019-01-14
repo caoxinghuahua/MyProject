@@ -11,7 +11,10 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
+import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -51,10 +54,35 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
         Log.i(TAG,"onCreate()");
 		//test
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS)== PackageManager.PERMISSION_GRANTED){
-            readContact();
+           new Thread(){
+               @Override
+               public void run() {
+//                  readContact();
+               }
+           }.start();
         }else {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},100);
         }
+       final Handler handler=new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Log.i("xxx"," main what："+msg.what);
+
+            }
+        };
+         
+        A a=new A();
+        a.start();
+        Handler handler1=new Handler(a.getLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Log.i("xxx","thread what："+msg.what);
+                handler.sendEmptyMessage(1);
+            }
+        };
+        handler1.sendEmptyMessage(2);
     }
 
     @Override
@@ -262,7 +290,12 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==100){
             if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                readContact();
+                new Thread(){
+                    @Override
+                    public void run() {
+//                        readContact();
+                    }
+                }.start();
             }
         }
     }

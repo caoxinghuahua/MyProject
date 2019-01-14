@@ -57,5 +57,6 @@ public class NewMainAdapter extends RecyclerView.Adapter implements View.OnClick
             textView=(TextView) itemView.findViewById(R.id.content);
         }
     }
+
 }
 
