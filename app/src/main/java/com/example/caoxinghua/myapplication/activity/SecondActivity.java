@@ -65,6 +65,12 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG,"onNewIntent()");
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.swithTo1Bt:

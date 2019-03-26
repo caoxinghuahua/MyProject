@@ -156,6 +156,7 @@ public class NewMainActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
     private void initData(){
 

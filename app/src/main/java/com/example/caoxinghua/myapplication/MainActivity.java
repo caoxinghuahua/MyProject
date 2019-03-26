@@ -1,10 +1,13 @@
 package com.example.caoxinghua.myapplication;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;

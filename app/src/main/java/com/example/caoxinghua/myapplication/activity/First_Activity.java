@@ -3,6 +3,8 @@ package com.example.caoxinghua.myapplication.activity;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.app.Application;
 import android.app.Dialog;
 import android.appwidget.AppWidgetProvider;
 import android.content.ContentResolver;
@@ -10,16 +12,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.os.PersistableBundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +38,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.manager.Lifecycle;
 import com.example.caoxinghua.myapplication.R;
+import com.example.caoxinghua.myapplication.javatest.A;
+import com.google.android.gms.dynamic.LifecycleDelegate;
 
 import java.security.Permission;
 import java.security.Permissions;
@@ -39,6 +49,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
+
+import dalvik.system.BaseDexClassLoader;
+import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
 
 public class First_Activity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG=getClass().getSimpleName();
@@ -46,6 +61,9 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
     private TextView saveTv;
     private int num;
     private MyView myView;
+    Stack<Activity> stack=new Stack<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,17 +90,31 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
             }
         };
          
-        A a=new A();
-        a.start();
-        Handler handler1=new Handler(a.getLooper()){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                Log.i("xxx","thread what："+msg.what);
-                handler.sendEmptyMessage(1);
-            }
-        };
-        handler1.sendEmptyMessage(2);
+//        A a=new A();
+//        a.start();
+//        Handler handler1=new Handler(a.getLooper()){
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//                Log.i("xxx","thread what："+msg.what);
+//                handler.sendEmptyMessage(1);
+//            }
+//        };
+//        handler1.sendEmptyMessage(2);
+        Object object=new Object();
+
+        try {
+            object.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        object.notify();
+//        LifecycleDelegate
+        testW_H(switch2Bt);
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+         builder.setIcon(null)
+                 .show();
     }
 
     @Override
@@ -299,4 +331,15 @@ public class First_Activity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+    //在onCeate中view没有绘制玩的情况下获取宽高
+    private void testW_H(View view){
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(w, h);
+//获得宽高
+        int viewWidth=view.getMeasuredWidth();
+        int viewHeight=view.getMeasuredHeight();
+        Log.i(TAG,"viewWidth: "+viewWidth+"--viewHeight: "+viewHeight);
+    }
+    
 }

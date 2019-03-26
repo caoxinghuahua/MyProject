@@ -1,5 +1,6 @@
 package com.example.caoxinghua.myapplication.service;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.caoxinghua.myapplication.R;
@@ -60,6 +62,7 @@ public class TestServiceActivity extends AppCompatActivity implements View.OnCli
         bindBt.setOnClickListener(this);
         unBindBt.setOnClickListener(this);
         accessBt.setOnClickListener(this);
+
     }
     @Override
     public void onClick(View v) {

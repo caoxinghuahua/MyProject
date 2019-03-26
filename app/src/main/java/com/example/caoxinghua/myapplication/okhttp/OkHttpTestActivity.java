@@ -1,8 +1,15 @@
 package com.example.caoxinghua.myapplication.okhttp;
 
+import android.app.Activity;
+import android.app.Application;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.ContentProvider;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -13,6 +20,8 @@ import android.support.design.widget.TabLayout;
 import com.bumptech.glide.Glide;
 import com.example.caoxinghua.myapplication.R;
 import com.example.caoxinghua.myapplication.util.NetUtils;
+import com.squareup.okhttp.Authenticator;
+import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -25,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -32,6 +42,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Cache;
+import okhttp3.internal.cache.CacheInterceptor;
 
 public class OkHttpTestActivity extends AppCompatActivity {
     private String url = "https://flight.gomeplus.com/flight?";
@@ -56,7 +70,7 @@ public class OkHttpTestActivity extends AppCompatActivity {
             }
         });
         for(int i=0;i<1;i++){
-            testOkhttp(""+(10014+i));
+//            testOkhttp(""+(10014+i));
         }
     /**    new Thread() {
             public void run() {
@@ -95,10 +109,33 @@ public class OkHttpTestActivity extends AppCompatActivity {
         }
         });
 
+
+        //okhttp 缓存使用
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            testNewOkhttp();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void testOkhttp(String slotId) {
         OkHttpClient httpClient = new OkHttpClient();
+        httpClient.setAuthenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Proxy proxy, Response response) throws IOException {
+                return null;
+            }
+
+            @Override
+            public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                return null;
+            }
+        });
+        //缓存目录
+        File cacheFile=new File(getExternalCacheDir().toString(),"cache");
+        //缓存大小
+        int cacheSize=10*1024*1024;
+        com.squareup.okhttp.Cache cache=new com.squareup.okhttp.Cache(cacheFile,cacheSize);
+        httpClient.setCache(cache);
 //        httpClient.setProxy(Proxy.NO_PROXY);
         //type=1 同步get 2异步get 3同步post 4异步post
         //同步时不能在主线程直接调用
@@ -193,9 +230,11 @@ public class OkHttpTestActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response response) throws IOException {
                         Log.i("xxx", "end:" + (System.currentTimeMillis()-start));
-                       Log.i("xxx", "post async response:" + response.body().string());
+                        Log.i("xxx", "cachepost async response:" +response.cacheResponse());
+                       Log.i("xxx", "post async response:" + response);
                     }
                 });
+
             }
         } catch (Exception e) {
            Log.i("xxx","error:"+e.toString());
@@ -221,6 +260,54 @@ public class OkHttpTestActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
+    public void testNewOkhttp(){
+
+        //设置缓存目录
+        File cacheFile= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO) {
+            cacheFile = new File(getExternalCacheDir(),"okhttpCache");
+        }
+        //缓存大小
+        int cacheSize=10*1024*1024;
+        com.squareup.okhttp.Cache cache=new com.squareup.okhttp.Cache(cacheFile,cacheSize);
+        OkHttpClient okHttpClient=new OkHttpClient();
+        okHttpClient.setCache(cache);
+        CacheControl cacheControl=new CacheControl.Builder()
+                .maxAge(60, TimeUnit.SECONDS)
+                .build();
+        Request request=new Request.Builder()
+                .url(imageUrl)
+                .cacheControl(cacheControl)
+                .build();
+        Call call=okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.i("xxx","error:"+e);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                Log.i("xxx", "cachepost async response:" +response.cacheResponse());
+                Log.i("xxx", "post async response:" + response);
+            }
+        });
+        Call call2=okHttpClient.newCall(request);
+        call2.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.i("xxx2","error:"+e);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                Log.i("xxx2", "cachepost async response:" +response.cacheResponse());
+                Log.i("xxx2", "post async response:" + response);
+            }
+        });
 
     }
 }

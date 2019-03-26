@@ -10,6 +10,6 @@
     android:id="@+id/swithTo1Bt"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="跳转到second"/>
+    android:text="跳转到first"/>
 
 </LinearLayout>
